@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Key : MonoBehaviour 
 {
     //Create a reference to the KeyPoofPrefab and Door
     public GameObject key;
     public Door door;
+    public GameObject keyPoof;
 
     private bool keyCollected;
 
@@ -17,10 +19,11 @@ public class Key : MonoBehaviour
 
 	public void OnKeyClicked()
 	{
-        // Instantiate the KeyPoof Prefab where this key is located
 
-        // Make sure the poof animates vertically
-        //Object.Instantiate(keyPoof, transform.position, Quaternion.Euler(-90, 0, 0));
+        AudioSource audio = key.GetComponent<AudioSource>();
+        audio.Play();
+        // Instantiate the KeyPoof Prefab where this key is located
+        Object.Instantiate(keyPoof, transform.position, Quaternion.identity);
         // Call the Unlock() method on the Door
         door.Unlock();
         Debug.Log("Door should be unlocked now.");
